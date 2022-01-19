@@ -19,7 +19,7 @@ class Solution:
                 else:
                     S[i][j] = S[i-1][j] or S[i-1][j-arr[i-1]]
         
-        return bool(S[len(arr)][sum])
+        return (S[len(arr)][sum])
         
 
 #{ 
