@@ -5,7 +5,7 @@ class Solution:
         
         for j in nums:
             freq1[j] = 0
-        for i in range(len(nums)+1):
+        for i in range(0,len(nums)+1):
             freq2[i] = 0
         for key in freq2:
             if key not in freq1:
