@@ -15,22 +15,34 @@ class Solution:
             
             return res
         tempQ.put(root)
-        
+        LeftRight = 0
         while (tempQ.empty() == False ):
             #1 get size = no. of elements in queue
             size = tempQ.qsize()
             #2 for all elements that are in the queue, add their left and right nodes into queue
             i=0
             tempArr = []
-            while i < size:
-                nodes = tempQ.get()
-                if(nodes.left != None):
-                    tempQ.put(nodes.left)
-                if(nodes.right != None):
-                    tempQ.put(nodes.right)
-                
-                tempArr.append(nodes.val)
-                i+=1
+            if LeftRight%2 == 0:
+                while i < size:
+                    nodes = tempQ.get()
+                    if(nodes.left != None):
+                        tempQ.put(nodes.left)
+                    if(nodes.right != None):
+                        tempQ.put(nodes.right)
+
+                    tempArr.append(nodes.val)
+                    i+=1
+            elif LeftRight%2 != 0:
+                while i < size:
+                    nodes = tempQ.get()
+                    if(nodes.right != None):
+                        tempQ.put(nodes.right)
+                    if(nodes.left != None):
+                        tempQ.put(nodes.left)
+
+                    tempArr.append(nodes.val)
+                    i+=1        
+            LeftRight
             res.append(tempArr)
         return res
                 
