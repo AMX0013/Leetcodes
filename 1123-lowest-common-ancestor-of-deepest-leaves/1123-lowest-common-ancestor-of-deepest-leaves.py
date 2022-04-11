@@ -1,10 +1,4 @@
 import queue
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
 class Solution:
     def postOrder(self, node, potres , height,dictTree):
         left  = None
@@ -20,14 +14,7 @@ class Solution:
         dictTree[height].append(node)
         potres.append([node.val,height,[left,right],node])
     def lcaDeepestLeaves(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        '''
-        testcases
         
-        [3,5,1,6,2,0,8,null,null,7,4,9]
-        [3,5,1,6,2,0,8,null,null,7,4,9,10]
-        [3,5,1,6,2,0,8,null,null,7,4]
-        
-        '''
         temp = root
         print("--------------")
         height = 0
@@ -36,21 +23,12 @@ class Solution:
         
         self.postOrder(root,arr,0,dictTree)
         
-        #print(height ,">",arr)
         parser = []
         subResult = []
         for items in arr:
             
             if items[1] > height:
                 height = items[1]
-        #print(height)
-        for items in arr:            
-            if items[1] == height:
-                parser.append([items[0],items[3]])
-                subResult.append(items[0])
-        #print(root)                          
-        #print("parser:",parser, len(parser))
-        
         
         while height >=0:
             if height == 0:
