@@ -32,7 +32,7 @@ class Solution:
                 else:
                     num2x+=1
                     #print(">",num2x)
-            num1x+=1
+            #num1x+=1
         #print(res)        
         return res
             
