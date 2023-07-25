@@ -7,12 +7,12 @@
 class Solution:
     def binaryTreePaths(self, root: Optional[TreeNode]) -> List[str]:
 
-        memo = {}
 
         def recurDfs(node) :
             resList = []
-            print("for :",node.val)
+            # print("for :",node.val)
             
+
 
             if node.left == None and node.right == None:
                 res = ""
@@ -30,7 +30,7 @@ class Solution:
                         leftRes += "->"
                         leftRes += str(nodes)
 
-                        print("for :",node.val,"leftRes :", leftRes)
+                        # print("for :",node.val,"leftRes :", leftRes)
                         resList.append(leftRes)
 
                 if node.right != None:
@@ -41,14 +41,16 @@ class Solution:
                         rightRes +=str(node.val)
                         rightRes += "->"
                         rightRes += str(nodes)
-                        
-                        print("for :",node.val,"rightRes :", rightRes)
+
+                        # print("for :",node.val,"rightRes :", rightRes)
                         resList.append(rightRes)
-            print(resList)   
+            # print(resList) 
+
+
             return resList
 
         myRes = recurDfs(root)
-        print(myRes)
+        # print(myRes)
 
         return myRes
             
