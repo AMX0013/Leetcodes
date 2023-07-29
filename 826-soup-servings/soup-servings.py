@@ -28,7 +28,10 @@ class Solution:
             # The 0.35 indicates the probability of choosing that option
             values[a,b] = 0.25*(computeProbability(a-100 , b-0)+computeProbability(a-75 , b-25)+computeProbability(a-50 , b-50)+computeProbability(a-25 , b-75))
             return values[a,b]
-
+        # This problem may be given 10^9 ml of soup , but when playing around with values and the returned  value, 
+        # as we only requiring it to be accurate to 5 decimal places,
+        #  Any value of n grater than 5000 is biund to return 1, so we hardcode that
+        
         if n >= 5000:
             return 1
         return computeProbability(n , n)
