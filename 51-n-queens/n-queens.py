@@ -16,15 +16,15 @@ class Solution:
         negative_diag_set = set()      #holds i-j value
 
 
-        dp = [ ["."]*n for _ in range(n)]
-        print(dp)
+        board = [ ["."]*n for _ in range(n)]
+        print(board)
 
         def placeQueen(i):
         # Top to down
 
             if i==n:
                 # reached out of array, successfully created n queens!
-                copyList = ["".join(rows) for rows in dp]
+                copyList = ["".join(rows) for rows in board]
                 print(copyList)
                 res.append(copyList)
                 return
@@ -35,18 +35,18 @@ class Solution:
                 i+j not in positive_diag_set and \
                 i-j not in negative_diag_set:
                     
-                    dp[i][j] = "Q"
+                    board[i][j] = "Q"
                     
                     horizontal_set.add(j)
                     positive_diag_set.add(i + j)
                     negative_diag_set.add(i - j)
-                    print(dp)
+                    print(board)
 
                     placeQueen(i+1) 
 
 
                     # remove placed queen
-                    dp[i][j] = "."                   
+                    board[i][j] = "."                   
                     horizontal_set.remove(j)
                     positive_diag_set.remove(i + j)
                     negative_diag_set.remove(i - j)
