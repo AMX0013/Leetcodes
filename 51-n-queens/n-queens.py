@@ -11,7 +11,7 @@ class Solution:
         
 
         # need a way to store no go zones : the i and j , the positive dignals , the negative diagnals
-        horizontal_set = set()         # holds j value
+        vertical_set = set()         # holds j value
         positive_diag_set = set()      #holds i+j value
         negative_diag_set = set()      #holds i-j value
 
@@ -31,13 +31,13 @@ class Solution:
 
            
             for j in range(n):
-                if j not in horizontal_set and \
+                if j not in vertical_set and \
                 i+j not in positive_diag_set and \
                 i-j not in negative_diag_set:
                     
                     board[i][j] = "Q"
                     
-                    horizontal_set.add(j)
+                    vertical_set.add(j)
                     positive_diag_set.add(i + j)
                     negative_diag_set.add(i - j)
                     print(board)
@@ -47,7 +47,7 @@ class Solution:
 
                     # remove placed queen
                     board[i][j] = "."                   
-                    horizontal_set.remove(j)
+                    vertical_set.remove(j)
                     positive_diag_set.remove(i + j)
                     negative_diag_set.remove(i - j)
         placeQueen(0)
