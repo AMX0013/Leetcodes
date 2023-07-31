@@ -1,33 +1,53 @@
 class Solution:
     def maxUncrossedLines(self, nums1: List[int], nums2: List[int]) -> int:
-        i = 0
-        j = 0
-        # O(m*n)
-        memo = {}
-
-        # O(m*n) TC Unique computations
-        def recurLCS(i,j):
+        
 
 
-            # Termination Condition:
+        # +---+---+---+---+---+
+        # |   |   | 1 | 4 | 2 |
+        # +---+---+---+---+---+
+        # |   | 0 | 0 | 0 | 0 |
+        # +---+---+---+---+---+
+        # | 1 | 0 | ^ |   |   |
+        # +---+---+---+---+---+
+        # | 2 |   |   |   |   |
+        # +---+---+---+---+---+
+        # | 4 |   |   |   |   |
+        # +---+---+---+---+---+
 
-            if i == len(nums1) or j == len(nums2):
-                return 0
-            # return cached val
-            if (i,j) in memo:
-                return memo[(i,j)]
 
-            if nums1[i] == nums2[j]:
-                # Cache current value:
-                memo[(i,j)] = 1 + recurLCS(i+1,j+1)
+        # convert this to 1D
+       
+        # | 0 | 0 | 0 | 0 |
+        # +---+---+---+---+
+        # | 0 | ^ |   |   |
+        # +---+---+---+---+
 
-                return memo[(i,j)]
+        # nums2 is horizontal   (dp arrays) 
+        # For DPs where we are looking backwards, lets keep that row clear
+        prev = [0]*(len(nums2)+1)
 
-            else:
-                # This enforces that they only move in one direction 
-                    # Basically no crosses, as we dont go to thier respective preceding values 
-                memo[(i,j)] = max( recurLCS(i+1,j) , recurLCS(i,j+1))
+        # nums1 flows vertical  
 
-                return memo[(i,j)]
 
-        return recurLCS(0,0)
+
+        # visualising prev & curr
+
+
+        for i in range(len(nums1)):
+            curr = [0]*(len(nums2)+1)
+            for j in range(len(nums2)):
+
+                if nums1[i] == nums2[j]:
+                    curr[j+1] = 1 + prev[j]
+                else:
+                    # At curr[j+1] , we want the max value if 
+                    curr[j+1] = max( curr[j] , prev[j+1] ) 
+            
+            prev = curr
+        
+        return curr[-1]
+                
+
+
+
