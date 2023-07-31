@@ -7,6 +7,7 @@ class Solution:
             if total == target:
                 if splice not in res:
                     res.append(splice.copy())
+                    return
             if total > target or index >=len(candidates):
                 return
             
