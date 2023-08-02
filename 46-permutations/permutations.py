@@ -31,12 +31,12 @@ class Solution:
                     perm.append(i0)
                 # perms = [[2,3,1],[3,2,1]]
 
-
                 res.extend(perms)
 
                 # finally to continue permutating, generate the next iteration of the splice
                 splice.append(i0)
                 # now splice = [2,3,1]
+                # Continues till next
             return res
             
 
