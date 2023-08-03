@@ -5,6 +5,7 @@ class Solution:
         res = []
 
         def recur(openCount,closeCount):
+            print(currCombo)
             if openCount==closeCount==n:
                 res.append("".join(currCombo))
                 return
