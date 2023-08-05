@@ -17,5 +17,6 @@ class Solution:
                     
                         dp[i] = True
                         # print(dp)
+                        continue
         print(dp)
         return dp[0] 
