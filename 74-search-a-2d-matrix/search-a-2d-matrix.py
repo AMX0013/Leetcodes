@@ -33,7 +33,6 @@ class Solution:
                     mid_j = (j_left+j_right)//2
                     print("----j----",mid_j)
 
-                    # print(matrix[mid_i][mid_j],"==", target,matrix[mid_i][mid_j] == target )
                     if matrix[mid_i][mid_j] == target:
                     # found the column
                         return True
@@ -41,10 +40,8 @@ class Solution:
                     
 
                     elif matrix[mid_i][mid_j] < target:
-                        # print("matrix[mid_i][mid_j] > target")
                         j_left = mid_j+1
                     else: 
-                        # print("else")
                         j_right = mid_j-1
                 
                 return False
