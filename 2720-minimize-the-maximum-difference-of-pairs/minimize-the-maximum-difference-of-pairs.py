@@ -23,9 +23,9 @@ class Solution:
         # this enables to identify pairs
         nums.sort()
         print(nums)
-        l = 0          #The least value a pair's difference can be
-        r = nums[-1]   #The max Element in a sorted array, This will yield
-        res = r-l      #literal max value of the difference
+        l = 0                    #The least value a pair's difference can be
+        r = nums[-1] - nums[0]   #The max Element in a sorted array, This will yield
+        res = r-l                #literal max value of the difference
 
 
         # only edge case where they ask for 0 pairs, max(0)
