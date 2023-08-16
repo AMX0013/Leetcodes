@@ -27,17 +27,17 @@ class Solution:
                 return True
             if i in memo.keys():
                 return memo[i]
+            res = False
 
             if i+1<n and nums[i]==nums[i+1]  :
-                memo[i] = True and recur(i+2)
-            if i+2<n and nums[i]==nums[i+1]==nums[i+2] :
-                memo[i] = True and recur(i+3)
-            if i+2<n and nums[i]==nums[i+1]-1==nums[i+2]-2 :
-                memo[i] = True and recur(i+3)
+                res =  recur(i+2)
+            if i+2<n :
+                if  nums[i]==nums[i+1]==nums[i+2] or nums[i]==nums[i+1]-1==nums[i+2]-2 :
+                    res = res or recur(i+3)
 
             # print(i,memo)
-            memo[i]= False
-            return False
+            memo[i]= res
+            return res
         
         res = recur(0)
 
