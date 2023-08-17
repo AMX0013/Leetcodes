@@ -13,7 +13,7 @@ class Solution:
             for w in range(width):
                 if mat[h][w]==0:
                     res[h][w] = 0
-                    bfsQ.append((0,h,w))
+                    bfsQ.append((h,w))
 
 
         directions = [(1,0),(0,1),(-1,0),(0,-1)]
@@ -21,10 +21,9 @@ class Solution:
 
         while bfsQ:
             # popleft from Queue
-            dist,h,w = bfsQ.popleft()
+            h,w = bfsQ.popleft()
 
-            # populate distance 
-            res[h][w] = min(res[h][w],dist)
+            
             # visited[h][w] = True
 
             for dir_h,dir_w in directions:
@@ -35,6 +34,8 @@ class Solution:
                 # if 0<=dh<height and 0<=dw<width and visited[dh][dw] == False:
                 if 0<=dh<height and 0<=dw<width and res[dh][dw] == INF:
 
-                    bfsQ.append((dist+1,dh,dw))
+                    # populate distance 
+                    res[dh][dw] = res[h][w]+1
+                    bfsQ.append((dh,dw))
 
         return res
