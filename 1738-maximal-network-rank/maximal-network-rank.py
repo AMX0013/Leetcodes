@@ -4,28 +4,43 @@ class Solution:
 
 
         denseCityLen  = 0
-        denseCity2Len = 0
-        
         denseCity = 0
-        denseCity2 =0
 
         for c1,c2 in roads:
             # densityDict[c1] = densityDict.get(c1,{})
             densityDict[c1].add(c2)
             densityDict[c2].add(c1)
+            
 
+            # Finding one densest city wont work as it landed on 11
+            # {
+            #    8: {1, 11, 12},
+            #   12: {8, 5}, 
+            #    5: {10, 11, 12}, 
+            #   11: {8, 3, 5},
+            #    9: {0, 4},
+            #    4: {9, 3},
+            #    0: {9},
+            #    1: {8},
+            #   10: {2, 5}, 
+            #    2: {10}, 
+            #   13: {14}, 
+            #   14: {13},
+            #    3: {11, 4}, 
+            #    6: set(),
+            #    7: set()
+            # }
 
-            # This wont work
+            # if len(densityDict[c2])>len(densityDict[c1]):
 
-            # Eg: defaultdict(<class 'set'>, {0: {1, 3}, 1: {0, 2, 3}, 3: {0, 1}, 2: {1}})
-            # 0: {1, 3}  and  3: {0, 1} have same len and cound be 2 
-            #  but 0 preferred
+            #     if denseCityLen < len(densityDict[c2]):
+            #         denseCityLen = len(densityDict[c2])
+            #         denseCity = c2
+            # else:
 
-            # if len(densityDict[c1]) > denseCityLen or len(densityDict[c2]) > denseCityLen:
-            #     denseCity2 = denseCity
-            #     if len(densityDict[c1]) > len(densityDict[c2]):
-            #         denseCity = c1
-            #     else:
+            #     if denseCityLen < len(densityDict[c1]):
+
+            #         denseCityLen = len(densityDict[c1])
             #         denseCity = c1
             
         maxC = 0
