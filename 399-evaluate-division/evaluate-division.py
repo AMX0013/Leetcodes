@@ -25,9 +25,10 @@ class Solution:
 
                 # default for a new var
                 dic[x] = (x,1)
+                print("\n","initialised " ,x ,"to :", dic[x])
+
 
             group , val = dic[x]
-            print("\n","initialised " ,x ,"to :", dic[x])
 
             # recur find the connected components to source
             # Note we are only mentione directed path 
@@ -58,7 +59,8 @@ class Solution:
 
                 print("creating new reln")
                 dic[grp1]= (grp2 , (value*val2/val1)  ) 
-
+                print(grp1,"->",grp2,dic[grp1])
+                print()
 
         # begin 
         res = []
@@ -72,6 +74,8 @@ class Solution:
         # Solve queries:
 
         for numer , denom in queries:
+            print("\nfor query : ",numer,"/",denom)
+
             # unknown var
             if (numer not in dic ) or (denom not in dic):
                 res.append(-1.00)
@@ -90,6 +94,7 @@ class Solution:
 
             if grp1 == grp2:
                 # a common factor found and divison generates the query
+                print("Valid query, = ",val1/val2 )
                 res.append(val1/val2)
             else:
                 # no relationship with query
