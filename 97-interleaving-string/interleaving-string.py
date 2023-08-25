@@ -5,7 +5,7 @@ class Solution:
 
             Goal string : aadbbcbcac
 
-             +---+---+---+---+---+---+
+            +---+---+---+---+---+---+
             |   | d | b | b | c |   |
             +---+---+---+---+---+---+
             | a |   |   |   |   |   |
@@ -28,6 +28,7 @@ class Solution:
         def topDownBacktrack(i,j):
             # Bottom Up approach This is the goal state
             if i == len(s1) and j == len(s2):
+                dp[(i,j)] = True
                 return True 
             # using memo
             if (i,j) in dp:
@@ -48,13 +49,13 @@ class Solution:
 
         dp = {} #memo : [(i,j)] = True or False, need to only mark false nodes
         
-
+        ans = topDownBacktrack(0,0)
         
         
-
+        print(dp)
         # while i <= len(s1) and j <=len(s2) and i+j len(s3):
             
             
             
-        return topDownBacktrack(0,0)
+        return ans
         
