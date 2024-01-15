@@ -1,1 +1,1 @@
-<h2>the-kth-factor-of-n Notes</h2><hr>Use 
+<h2>the-kth-factor-of-n Notes</h2><hr>Use 2 lists 
