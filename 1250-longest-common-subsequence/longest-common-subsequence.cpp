@@ -1,10 +1,10 @@
 class Solution {
 public:
     int longestCommonSubsequence(string text1, string text2) {
-        vector<vector<int>> dp(text2.size()+1, vector<int>(text1.size()+1, 0));
+        vector<vector<short>> dp(text2.size()+1, vector<short>(text1.size()+1, 0));
 
-        for( int i = 0; i<text2.size();i++){
-            for (int j = 0; j<text1.size(); j++){
+        for( short i = 0; i<text2.size();i++){
+            for (short j = 0; j<text1.size(); j++){
                 // if the chars match
                 if (text2[i] == text1[j]){
                     dp[i+1][j+1] = dp[i][j]+1;
