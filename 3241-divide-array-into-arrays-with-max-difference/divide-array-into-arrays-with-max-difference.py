@@ -1,44 +1,31 @@
 class Solution:
     def divideArray(self, nums: List[int], k: int) -> List[List[int]]:
-        size = len(nums)       
-
         dp = {}
 
         for num in nums:
             dp[num] = dp.get(num,0)+1
 
-        print(dp)
-        
-        result = []
-
-        subRes = [] 
-
-        for i in range(min(nums) , max(nums)+1):
+        min_nums, max_nums = min(nums) , max(nums)
+        # re-empty
+        nums = []
+         
+        # Count Sort for O(N)
+        for i in range( min_nums, max_nums+1):
             if i in dp.keys():
                 while dp[i] >0:
-                    val = i
+                    nums.append(i)
                     dp[i] -=1
-                    print("Current subRes:", subRes, "val = ", val)
-                    match len(subRes):
-                        
-                        case 2:
-                            if val - subRes[0] <=k:
-                                subRes.append(val)
-                                result.append(subRes)
-                                subRes = []
-                            else:
-                                return []
-                                
-                        case 1:
-                            if val - subRes[0] <=k:
-                                subRes.append(val)
-                            else:
-                                return []
-                        case 0:
-                            subRes.append(val)
-                        case _:
-                            return []
-                            
+        dp = None
+
+        # Actual logic
+        result = []
+        
+
+        for i in range(0,len(nums)-2,3):
+            if nums[i+2]-nums[i] <= k and  nums[i+1]-nums[i] <= k:
+                result.append( nums[i:i+3] )
+            else:
+                return []
                 
         return result
 
