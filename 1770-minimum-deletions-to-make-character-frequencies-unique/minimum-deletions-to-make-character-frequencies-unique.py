@@ -49,7 +49,9 @@ class Solution:
                         deletions += (freqKey - downwardFreqAllocator ) 
                         allocated += downwardFreqAllocator
                         break
-                    downwardFreqAllocator -=1
+                    else:
+                        # try at a lower freq
+                        downwardFreqAllocator -=1
         # print(freq_char_map)
         
 
