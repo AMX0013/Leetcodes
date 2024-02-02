@@ -1,16 +1,15 @@
 class Solution:
     def minDeletions(self, s: str) -> int:
         deletions = 0
-
-        usedFreqSet = set()
-
-        freqMap = Counter(s)
-
-        for char, freq in freqMap.items():
-            while freq>0 and freq in usedFreqSet:
-                deletions +=1
-                freq-=1
-            usedFreqSet.add(freq)
+        usedFreq = set()
+        # for each unique character
+        for char in set(s):
+            # count
+            freq_underCalculation = s.count(char)
+            while freq_underCalculation > 0 and freq_underCalculation in usedFreq:
+                freq_underCalculation -=1
+                deletions+=1
+            usedFreq.add(freq_underCalculation)
 
         return deletions
 
