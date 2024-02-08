@@ -12,17 +12,19 @@ class Solution:
 
         q = deque()
         visited = set()
+        
         q.append((n,0))
 
         while q:
             num, step  = q.popleft()
-
+            print("num, step =",num,step)
             if num == 0:
                 # print()
                 return step
             
             for sqr in sqrs:
                 if num-sqr >=0 and num-sqr not in visited:
+                    print("pushed num, step =",num-sqr,step+1)
                     q.append( ( num-sqr, step+1  ))
                     visited.add(num-sqr)
         return 0
