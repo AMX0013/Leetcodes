@@ -1,23 +1,23 @@
 class Solution:
     def numSquares(self, n: int) -> int:
-        memo = defaultdict()
+        memo = []
+        
+        if n ==0:
+            return 0
+        j=0
 
-        def psChec(num:int):
-            
-            if num ==0:
-                return 0
+        while j <=n:
+            memo.append(j)
+            j+=1
+        
+        x = 1
+        while x<= n:
 
-            least = num
-            if num in memo.keys():
-                return memo[num]
-            
             i = 1
-            while i*i <=  num:
-                least = min(least, 1+psChec(num-i*i))
-
+            while i*i <=  x:
+                memo[x] = min( memo[x], 1+memo[x-i*i])
                 i+=1
-            
-            memo[num] = least
-            return least
+            x+=1
+        
 
-        return psChec(n)
+        return memo[n]
