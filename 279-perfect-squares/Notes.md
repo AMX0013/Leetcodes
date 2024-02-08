@@ -1,1 +1,1 @@
-<h2>perfect-squares Notes</h2><hr>BFS : Number and step
+<h2>perfect-squares Notes</h2><hr>BFS : Number and nu
