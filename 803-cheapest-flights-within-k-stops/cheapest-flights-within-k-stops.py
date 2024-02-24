@@ -12,42 +12,40 @@ class Solution:
         price = 0
         hops  = 0
         
-        visited = set()
+        visited = [10**9]*n
         path = [src]
         print(path)
-        heapq.heappush(heapQ,(price,hops,src))
+        heapq.heappush(heapQ,(price,hops,src,path))
         
-        resPrice = 10**9
+        resPrice = -1
 
         while heapQ:
 
-            price, hops,curr = heapq.heappop(heapQ)
+            price, hops,curr,path = heapq.heappop(heapQ)
             
-            # print("price, hops,curr",price, hops,curr,path)
+            print("price, hops,curr",price, hops,curr,path)
 
-            # minheap-> cheapest will be found first
             if curr == dst:
                 print("cheapest is ",price)
-                return price
+                resPrice = price
+                break
 
-            if (str(price)+str(curr)) in visited:
-                print("visited ex again. Ex is :",curr)
-                continue
-
-            
             if hops>k:
-                # print("hopped a lot",hops,k,hops>k)
-
+                print("hopped a lot",hops,k,hops>k)
                 continue
+            # visited tracks if i have come to a node with said hops
+            # if i come there again with more hops, its a longer path and can be pruned
+            if hops >= visited[curr]  :
+                print("visited ex again. Ex is :",curr, path)
+                print(visited)
+                continue
+            visited[curr] = hops
 
             for next_dest, next_price in adj[curr]:
-                # temp = path.copy()
-                # temp.append(next_dest)
-                # heapq.heappush(heapQ,(price + next_price ,hops +1 ,next_dest,temp ))
-                heapq.heappush(heapQ,(price + next_price ,hops +1 ,next_dest))
-
-
-            visited.add(str(price)+str(curr))
-        return -1
+                temp = path.copy()
+                temp.append(next_dest)
+                heapq.heappush(heapQ,(price + next_price ,hops +1 ,next_dest,temp ))
+        
+        return resPrice
 
 
