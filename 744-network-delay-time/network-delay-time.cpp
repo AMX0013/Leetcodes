@@ -32,7 +32,7 @@ public:
             for (auto neighbors: adj_list[currNode]) {
                 int neighbor = neighbors.first;
                 int neighborTime = neighbors.second;
-                cout  << ",neighbor = "<<neighbor << ", neightime: "<< neighborTime<< endl;
+                // cout  << ",neighbor = "<<neighbor << ", neightime: "<< neighborTime<< endl;
                 if (signalReceivedTime[neighbor] > currNodeTime + neighborTime ) {
                     signalReceivedTime[neighbor] = currNodeTime + neighborTime;
                     pq.push( {neighbor, signalReceivedTime[neighbor] } );
