@@ -1,63 +1,52 @@
 class Solution {
 public:
-
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
-
-        vector<pair<int, int>> adj_list[n+1];
-
-        for (auto edge : times) {
-            int u = edge[0];
-            int v = edge[1];
-            int w = edge[2];
-
-            adj_list[u].push_back({v, w});
-
+        vector<int> minTime(n + 1, INT_MAX);
+        // node[node_num] (time, next_node)
+        vector<pair<int, int>> node[n + 1];
+        // pq(time, next_node)
+        priority_queue<pair<int, int>, vector<pair<int, int>>,
+                       greater<pair<int, int>>>
+            pq;
+        for (int i = 0; i < times.size(); i++) {
+            int from = times[i][0];
+            int to = times[i][1];
+            int time = times[i][2];
+            node[from].push_back(make_pair(time, to));
         }
+        pq.push(make_pair(0, k));
+        minTime[k] = 0;
 
-        vector<int> signalReceivedTime(n+1, INT_MAX);
-
-        priority_queue<
-
-            pair<int,int>,
-
-            vector<pair<int,int>>,
-
-            greater<pair<int,int>>
-        > pq;
-
-
-        pq.push({k,0});
-
-        signalReceivedTime[k] = 0;
-
-        while (!pq.empty()){
-            int currNode = pq.top().first;
-            int currNodeTime = pq.top().second;
+        while (!pq.empty()) {
+            int time = pq.top().first;
+            int cur_node = pq.top().second;
             pq.pop();
-            if (currNodeTime > signalReceivedTime[currNode]) {
+            // cout << "cur_node" << cur_node << endl;
+            if (time > minTime[cur_node]) {
+                cout << "c" << endl;
                 continue;
             }
-            for (auto neighbors: adj_list[currNode]) {
-                int neighbor = neighbors.first;
-                int neighborTime = neighbors.second;
-                cout  << ",neighbor = "<<neighbor << ", neightime: "<< neighborTime<< endl;
-                if (signalReceivedTime[neighbor] > currNodeTime + neighborTime ) {
-                    signalReceivedTime[neighbor] = currNodeTime + neighborTime;
-                    pq.push( {neighbor, signalReceivedTime[neighbor] } );
+
+            for (int i = 0; i < node[cur_node].size(); i++) {
+                // cout << "node" << cur_node << "s"<< node[cur_node].size() <<
+                // endl;
+                int next_time = node[cur_node][i].first;
+                int next_node = node[cur_node][i].second;
+                if (next_time + minTime[cur_node] < minTime[next_node]) {
+                    minTime[next_node] = next_time + minTime[cur_node];
+                    pq.push(make_pair(next_time, next_node));
+                    // cout << "push" << endl;
                 }
-            }//done bfs
-        } //done while
-
-        int res = INT_MIN;
-        for (int i = 1; i<=n; i++) {
-            int dur = signalReceivedTime[i];
-            res = max(res, dur);
+            }
         }
-        if (res == INT_MAX){
+        int ret = -1;
+        for (int i = 1; i <= n; i++) {
+            cout << "i" << i << ":" << minTime[i] << endl;
+            ret = max(ret, minTime[i]);
+        }
+        if (ret == INT_MAX)
             return -1;
-        }
-        return res;
 
-
-    }// done func
+        return ret;
+    }
 };
