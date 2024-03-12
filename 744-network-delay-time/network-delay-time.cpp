@@ -12,30 +12,32 @@ public:
 
             greater<pair<int,int>>
         > pq;
-        pq.push({k,0});
+        pq.push({0,k});
         vector<pair<int, int>> adj_list[n+1];        
         for (auto edge : times) {
             int u = edge[0];
             int v = edge[1];
             int w = edge[2];
 
-            adj_list[u].push_back({v, w});
+            adj_list[u].push_back({w,v});
 
         }
+
         while (!pq.empty()){
-            int currNode = pq.top().first;
-            int currNodeTime = pq.top().second;
+            int currNodeTime = pq.top().first;
+            int currNode = pq.top().second;
             pq.pop();
             if (currNodeTime > signalReceivedTime[currNode]) {
+                // cout<< currNodeTime <<" skip" <<endl;
                 continue;
             }
             for (auto neighbors: adj_list[currNode]) {
-                int neighbor = neighbors.first;
-                int neighborTime = neighbors.second;
+                int neighborTime = neighbors.first;
+                int neighbor = neighbors.second;
                 // cout  << ",neighbor = "<<neighbor << ", neightime: "<< neighborTime<< endl;
                 if (signalReceivedTime[neighbor] > currNodeTime + neighborTime ) {
                     signalReceivedTime[neighbor] = currNodeTime + neighborTime;
-                    pq.push( {neighbor, signalReceivedTime[neighbor] } );
+                    pq.push( {signalReceivedTime[neighbor],neighbor} );
                 }
             }//done bfs
         } //done while
