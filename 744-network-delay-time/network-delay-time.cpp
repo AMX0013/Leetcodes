@@ -27,10 +27,10 @@ public:
             int currNodeTime = pq.top().first;
             int currNode = pq.top().second;
             pq.pop();
-            if (currNodeTime > signalReceivedTime[currNode]) {
-                // cout<< currNodeTime <<" skip" <<endl;
-                continue;
-            }
+            // if (currNodeTime > signalReceivedTime[currNode]) {
+            //     // cout<< currNodeTime <<" skip" <<endl;
+            //     continue;
+            // }
             for (auto neighbors: adj_list[currNode]) {
                 int neighborTime = neighbors.first;
                 int neighbor = neighbors.second;
