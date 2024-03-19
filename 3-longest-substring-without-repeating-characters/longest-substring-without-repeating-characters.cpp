@@ -4,7 +4,7 @@
 // #include <tuple>
 // #include <utility> // For std::pair
 // #include <string>
-// #include <bits/stdc++.h>
+#include <bits/stdc++.h>
 // // #include <algorithms>
 using namespace std;
  
@@ -125,6 +125,17 @@ using namespace std;
 //     }
 //     std::cout << "}";
 // }
+// template<typename K, typename V>
+// void print(const std::unordered_map<K, V>& m) {
+//     std::cout << "{";
+//     for(auto it = m.begin(); it != m.end(); ) {
+//         std::cout << it->first << ": " << it->second;
+//         ++it;
+//         if(it != m.end()) std::cout << ", ";
+//     }
+//     std::cout << "}";
+// }
+
 // // Template specialization for sets
 // template<typename T>
 // void print(const std::set<T>& s) {
@@ -157,29 +168,25 @@ public:
         // sliding window
         int res =0;
         int anchor=0;
-        vector<bool> vectorChar(256,0);
+        int count=0;
 
+        unordered_map<char, int> slidingWindow; 
 
-        
         for (int i=0; i< s.length(); i++) {
-            // print(res, i, anchor);
-            if (vectorChar[s[i]]) {
-                // right met a duplicate char
-                while (vectorChar[s[i]]){
-                    vectorChar[s[anchor]] = 0;
-                    anchor++;
-                }
-            }
-            // }else{
-                vectorChar[s[i]]=1;
-                res = max(res, i-anchor+1);
-                // i++;
-            // }
+            // print(anchor, i);
             
+            // duplicate encountered wrt map and the index at which it exists is right of anchor,
+            if (slidingWindow.find(s[i]) !=slidingWindow.end() && anchor<= slidingWindow[s[i]] ){
+                anchor = slidingWindow[s[i]] +1 ;
+            }
 
+            // print("inserted",s[i]);
+            slidingWindow[s[i]] = i;
+            res = max(res, i-anchor+1 );
+            // print(slidingWindow);
+
+            cout<<endl;
         }
-        // print(res, anchor);
-
         return res;
     }
 };
