@@ -10,8 +10,7 @@ from collections import deque
 class Solution:
     def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
         
-        # dfs to create a associated list
-
+        # dfs to create a associated list from node to parent
         parent = defaultdict(TreeNode)
 
         def dfs(node):
