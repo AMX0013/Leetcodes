@@ -3,7 +3,7 @@
 #include <map>
 #include <tuple>
 #include <utility> // For std::pair
-
+#pragma once
 
 
 class Solution {
