@@ -37,10 +37,9 @@ public:
                 current = current->next;
             }
 
-            if (current->next != nullptr){
-                current->val += current->next->val;
-                current->next = current->next->next;
-            }
+            current->val += current->next->val;
+            current->next = current->next->next;
+            
         }
 
 
