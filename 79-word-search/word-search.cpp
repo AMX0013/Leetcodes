@@ -89,79 +89,51 @@
 
 class Solution {
 public:
-
-    bool wordFind( vector<vector<char>>& board, string word, vector<vector<bool>>& visited, std::pair<int,int>& currLoc,int strIdx){
-
-        // std::vector<std::pair<int,int>> 
-        // unpacking: 
-        int rowValue = currLoc.first;
-        int colValue = currLoc.second;
-        string str = "";
-
-        str.insert(0, strIdx, ' ');
-        // print(str,"at :",rowValue, colValue);
-
-        if (word[strIdx] == board[rowValue][colValue] ) {
-            strIdx+=1;
-        }
-        else{
-            return false;
-        }
-
-        if (strIdx == word.length() ) {
-                // finally reached!
-                return true;
-        }
-
-
-        visited[rowValue][colValue] = true;
-
-        vector<std::pair<int,int>> directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
-
-        // print(directions);printf("\n-----\n");
-        for (auto dir : directions){
-            
-            int newRow = rowValue + dir.first;
-            int newCol = colValue + dir.second;     
-            // print(str,"new idicies",newRow, newCol);
-
-            if ( (0<=newRow && newRow < board.size() ) and ( 0<=newCol && newCol <board[newRow].size() ) ) {
-                if (!visited[newRow][newCol]  ) {
-                    // explore
-                    std::pair<int,int> nextLoc = {newRow, newCol};
-                    if ( wordFind(board, word, visited, nextLoc, strIdx ) ) {
-                        return true;
-                    }                    
-                }
+    // optimization: prevent usage of visited, memory space by temporarily changing the curr loc var
+    bool wordFind( vector<vector<char>>& board, string word, int row,int col  ,int strIdx){
+    
+        if ( (0<=row && row < board.size() ) and ( 0<=col && col <board[row].size() ) ) {
+        
+            if (word[strIdx] == board[row][col] ) {
+                strIdx+=1;
             }
+            else{
+                return false;
+            }
+            if (strIdx == word.length() ) {
+                    // finally reached!
+                    return true;
+            }
+            else{
+                char temp = board[row][col];
+                board[row][col] = '*';
+                if ( wordFind(board, word, row +1, col   , strIdx ) ) return true;
+                if ( wordFind(board, word, row -1, col   , strIdx ) ) return true;
+                if ( wordFind(board, word, row   , col +1, strIdx ) ) return true;
+                if ( wordFind(board, word, row   , col -1, strIdx ) ) return true;
+                board[row][col] = temp;
+            }
+            
+
         }
-        visited[rowValue][colValue] = false;
         return false;
     }
   
     bool exist(vector<vector<char>>& board, string word) {
 
+        int height = board.size();
+        int width = board [0].size();
 
-        
-        vector<vector<bool>> visited( board.size(), vector<bool>(board[0].size(), false)  );
+        vector<vector<bool>> visited( height, vector<bool>(width, false)  );
 
-        // vector<vector<char>> visited;
-        // first find the starting word
-
-        for (int row = 0; row <board.size();row++){
-            for (int col = 0; col <board[row].size();col++){
-
-                // if (board[row][col] == word[0] ) {
-                //     // check out its neighbours recursively 
-                    std::pair<int,int> currLoc = {row, col};
-                    int strIdx = 0;
-                //     visited[row][col]= true;
-                    if (wordFind(board, word, visited, currLoc, strIdx ) ){
+        for (int row = 0; row <height;row++){
+            for (int col = 0; col <width;col++){
+ 
+                    if (wordFind(board, word, row,col, 0 ) ){
                         return true;
 
                     }
-                    // visited[row][col] = false;
-                // }
+                    
             }
         }
 
