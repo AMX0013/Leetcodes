@@ -9,7 +9,7 @@
 class Solution {
 public:
     // optimization: prevent usage of visited, memory space by temporarily changing the curr loc var
-    bool wordFind( vector<vector<char>>& board, string word, int row,int col  ,int strIdx){
+    bool wordFind( vector<vector<char>>& board, string word, int row,int col,int height,int width  ,int strIdx){
     
         if ( (0<=row && row < board.size() ) and ( 0<=col && col <board[row].size() ) ) {
         
@@ -26,10 +26,10 @@ public:
             else{
                 char temp = board[row][col];
                 board[row][col] = '*';
-                if ( wordFind(board, word, row +1, col   , strIdx ) ) return true;
-                if ( wordFind(board, word, row -1, col   , strIdx ) ) return true;
-                if ( wordFind(board, word, row   , col +1, strIdx ) ) return true;
-                if ( wordFind(board, word, row   , col -1, strIdx ) ) return true;
+                if ( wordFind(board, word, row +1, col   ,height,width, strIdx ) ) return true;
+                if ( wordFind(board, word, row -1, col   ,height,width, strIdx ) ) return true;
+                if ( wordFind(board, word, row   , col +1,height,width, strIdx ) ) return true;
+                if ( wordFind(board, word, row   , col -1,height,width, strIdx ) ) return true;
                 board[row][col] = temp;
             }
             
@@ -48,7 +48,7 @@ public:
         for (int row = 0; row <height;row++){
             for (int col = 0; col <width;col++){
  
-                    if (wordFind(board, word, row,col, 0 ) ){
+                    if (wordFind(board, word, row,col,height,width, 0 ) ){
                         return true;
 
                     }
