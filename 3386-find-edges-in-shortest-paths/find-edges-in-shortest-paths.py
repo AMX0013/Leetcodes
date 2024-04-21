@@ -19,7 +19,7 @@ class Solution:
         while bfsHeap:
             # print(bfsHeap)
             dist, src, edgesUsed = heapq.heappop(bfsHeap)
-            print("popped node:", src)
+            # print("popped node:", src)
             # If we reach the destination with a potential new shortest path
             if src == n - 1 and dist <= min_dist[n-1]:
                 for idx in edgesUsed:
