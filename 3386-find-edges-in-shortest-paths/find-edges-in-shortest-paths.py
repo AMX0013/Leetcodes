@@ -3,38 +3,46 @@ from typing import List
 
 class Solution:
     def findAnswer(self, n: int, edges: List[List[int]]) -> List[bool]:
-        res = [False] * len(edges)
-
-        # Create adjacency list
+        # result
+        res = [False]*len(edges)
+        # init bfsHeap to dist=0, src = 0, path
+        bfsHeap = [(0,0,[])]
+        # min_dist_to_node 
+        minDist = [10**9 ] * n
+        minDist[0] = 0
+        # adjList
         adj = [[] for _ in range(n)]
-        for index, (ai, bi, wi) in enumerate(edges):
-            adj[ai].append((wi, bi, index))
-            adj[bi].append((wi, ai, index))
-
-        # Priority queue for BFS, starting from node 0
-        bfsHeap = [(0, 0, [])]  # (distance to node, node, edges used)
-        min_dist = [float('inf')] * n  # Track the shortest distance to each node
-        min_dist[0] = 0  # Distance to start node is 0
+        # create an adj list with the edge's index to be used in res
+        for idx, (src,dest,wt) in enumerate(edges):
+            adj[src].append((wt,dest,idx))
+            adj[dest].append((wt,src,idx))
+        
 
         while bfsHeap:
-            # print(bfsHeap)
-            dist, src, edgesUsed = heapq.heappop(bfsHeap)
-            # print("popped node:", src)
-            # If we reach the destination with a potential new shortest path
-            if src == n - 1 and dist <= min_dist[n-1]:
-                for idx in edgesUsed:
+
+            dist, src, path = heapq.heappop(bfsHeap)
+            
+
+            if src == n-1 and dist <= minDist[src]:
+                # reached
+                for idx in path:
                     res[idx] = True
 
-            # Explore each adjacent node
             for wt, dest, edgeId in adj[src]:
-                new_dist = dist + wt
-                if new_dist <= min_dist[dest]:
-                    newPath = list(edgesUsed)
+                
+                newDist = dist + wt
+                if newDist <= minDist[dest]:
+                    minDist[dest] = newDist
+                    newPath = list(path)
                     newPath.append(edgeId)
-                    min_dist[dest] = new_dist
-
-                    # print("adding to heap: ", dest)
-                    heapq.heappush(bfsHeap, (new_dist, dest, newPath ))
-
+                    heapq.heappush(bfsHeap, (newDist, dest, newPath))
+            
+            
+        print(minDist)
         return res
+            
+
+        # create a minheap to implement dijkstra's alg, with first element being distance
+            # since we want the edge choice, we send the path as well in the minheap
+            # and visited here will a int array ensure that the min dist for that node is captured
 
