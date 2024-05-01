@@ -16,9 +16,7 @@ class MedianFinder:
         # add number into a heap that will be popped and populate the main heap
             # the left size in our case
             # this ensures that the input is always sorted
-        heapq.heappush(self.leftHalf_negMax, -num)
-
-        heapq.heappush(self.rightHalf_posMin, -(heapq.heappop(self.leftHalf_negMax) ))
+        heapq.heappush(self.rightHalf_posMin, -(heapq.heappushpop(self.leftHalf_negMax, -num) ))
         
         # length of left half should always be larger and thus median will be here
         if len(self.leftHalf_negMax) < len(self.rightHalf_posMin):
