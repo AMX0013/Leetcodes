@@ -4,7 +4,7 @@ class Solution:
     def minAnagramLength(self, s: str) -> int:
         n = len(s)
         res = len(s)
-        for seg_len in range(1,n ):
+        for seg_len in range(1,n//2 +1 ):
             if n%seg_len != 0:
                 continue
             anagram = Counter(s[:seg_len])
