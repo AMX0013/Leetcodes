@@ -7,12 +7,12 @@ class Solution:
         for seg_len in range(1,n ):
             if n%seg_len != 0:
                 continue
-            anagram = str(sorted(s[:seg_len]))
+            anagram = Counter(s[:seg_len])
             # print("Testing for the anagram",str(anagram))
             is_anagram = True
             # else
             for i in range(seg_len,n,seg_len):
-                word =  str(sorted(s[i:i+seg_len]))
+                word =  Counter(s[i:i+seg_len])
                 if anagram != word:
                     # print("failed for: ", str(word))
                     is_anagram = False
