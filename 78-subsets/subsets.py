@@ -9,7 +9,7 @@ class Solution:
         subset = []
         def dfs(i, subset):
             if i > len(nums)-1:
-                res.append(subset.copy())
+                res.append(subset[:])
                 return
             # add teh element to subset
             subset.append(nums[i])
