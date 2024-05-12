@@ -1,29 +1,23 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        memo = {}
         res = []
-        def recurSum(index,combo_arr,total):
-            
-            if total == target:
-                if combo_arr not in res:
-                    res.append(combo_arr.copy())
-                    return
-            if total > target or index >=len(candidates):
+        combo = []
+        def recur(combo: List[int], i: int, cum_sum: int):
+            if cum_sum == target:
+                res.append(combo[:])
+                return 
+            if i>=len(candidates) or cum_sum >= target:
                 return
-            
-            # 1st call considering the element too
-            combo_arr.append(candidates[index])
-            recurSum(index , combo_arr, total+candidates[index])
+            # if including num[i], then i wont inc
+            combo.append(candidates[i])
+            recur(combo, i, cum_sum + candidates[i])
+            # remove the element added
+            combo.pop()
+            # not including anymore instances of num[i]
+            recur(combo, i+1, cum_sum)
 
-            # pop from curr, before next one
-
-            combo_arr.pop()
-
-            #2nd call without having the element
-            recurSum(index+1 , combo_arr, total)
-
-
-        recurSum(0,[],0)
+        recur(combo, 0, 0)         
+                    
         return res
         
 
