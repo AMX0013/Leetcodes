@@ -3,46 +3,32 @@ class Solution:
       
     def permute(self, nums: List[int]) -> List[List[int]]:
         
-
-        if len(nums) == 1:
-            return [nums[:]]
- 
-
-        def recur(splice):
-            res  = []
-
-            if len(splice) == 1:
-                return [splice[:]]
+        # backtracking, as in find permutations of the smaller set
+        def recur( nums: List[List[int]]):
             
-            for _ in range(len(splice)):
 
-                # pop the 0th element 
-                # eg: in [1,2,3]
-                # i0 = 1
-                i0 = splice.pop(0)
+            if len(nums) == 1:
+                return [nums[:]]
+            res = []
+            for i in range(len(nums)):
+                # reduce
+                popped = nums.pop(0)
+                # obtain permutations of smaller set
+                perms = recur(nums)
+                # put it back, but diff loc right? like a queue?
+                nums.append(popped)
 
-                # We will finde the perms of this smaller subarray, then append i0
-                # to all of them
-                
-                perms = recur(splice)  #splice = [2,3]
-
-                # perms = [[2,3],[3,2]]
+                # create your permutations
                 for perm in perms:
-                    perm.append(i0)
-                # perms = [[2,3,1],[3,2,1]]
+                    perm.append(popped)
 
                 res.extend(perms)
-
-                # finally to continue permutating, generate the next iteration of the splice
-                splice.append(i0)
-                # now splice = [2,3,1]
-                # Continues till next
             return res
-            
 
+        res = recur(nums)
 
+        return res
         
-        return recur(nums)
             
             
             
