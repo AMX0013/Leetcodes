@@ -1,34 +1,25 @@
 class Solution:
+    # issues
+        # no proper memoization, 
+        # relies on sorting heavily
     def subsets(self, nums: List[int]) -> List[List[int]]:
         res = []
         # res.add()
         
-        stack = []
-        for num in nums:
-            stack.append(set([num]))
+        subset = []
+        def dfs(i, subset):
+            if i > len(nums)-1:
+                res.append(subset.copy())
+                return
+            # add teh element to subset
+            subset.append(nums[i])
+            dfs(i+1,subset)
 
-        # print("stack after population: ",stack)
-        while stack:
-            subset = stack.pop()
-            if sorted(list(subset)) in res:
-                continue
-            res.append(sorted(list(subset)))
+            subset.pop()
+            dfs(i+1,subset)
 
-            # print("popped: ",subset)
-            # print("stack before: ", stack)
-            for num in nums:
-                if num in subset:
-                    continue
-                subset.add(num)
-                stack.append(subset.copy())
-                subset.remove(num)
-            # print("stack now: ", stack)
-            # print(res)
+        dfs(0,subset)
 
-
-
-        res.append([])
-
-        return sorted(res)
+        return res
 
 
