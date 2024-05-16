@@ -1,49 +1,52 @@
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        # ASsumption 1: Rows are sorted
+        # Assumption 2: First element of each row is larger than the last element of prev row
 
-        i_left = 0
-        # vertical ptr i
-        i_right = len(matrix)-1
+        # Can be aligned to gether to form a singular long sorted element
+
+        # First, find the row
+        # then search the row
+
+        cols_arr = [matrix[y][0] for y in range(len(matrix))]
+        # print(cols_arr)
+        col_len = len(cols_arr)
+
+        def Check(mid, arr) -> bool:
+            # print("col check", arr[mid])
+            if arr[mid] > target:
+                return True
+
+        def binary_first(arr, condition):
+            # print("BS ing on: ", arr)
+            left, right = 0, len(arr)
+            while left < right:
+                mid = left + (right-left)//2
+
+                if condition(mid, arr):
+                    right = mid
+                else:
+                    left = mid+1
+            #  this is the leftmost index where the element would be inserted
+            # for the search, return left-1
+            return left-1
+
+        condition = Check
+        column = binary_first(cols_arr, condition)
+        
+
+        row_arr = matrix[column]
+        # print(row_arr)
+
+        lindex = binary_first(row_arr, condition)
+        # print(lindex,row_arr)
+
+        return (row_arr[lindex] == target)
+
         
 
 
-        j_left = 0
-        # vertical ptr j
-        j_right =len(matrix[0])-1
+
         
 
-        while i_left<= i_right :
-            mid_i = (i_left+i_right)//2
-            print("--i--",mid_i)
-
-            # mid_i indicates the row in question
-            # [x,.....,y]
-            if target > matrix[mid_i][-1] : #target > y
-                i_left = mid_i+1
-                
-            elif target < matrix[mid_i][0]:  #target < x
-                i_right= mid_i-1
-
-            else:  #element in current row
-           
-
-                # Now find row using binary search
-                while j_left <= j_right:
-
-                    mid_j = (j_left+j_right)//2
-                    print("----j----",mid_j)
-
-                    if matrix[mid_i][mid_j] == target:
-                    # found the column
-                        return True
-
-                    
-
-                    elif matrix[mid_i][mid_j] < target:
-                        j_left = mid_j+1
-                    else: 
-                        j_right = mid_j-1
-                
-                return False
-
-        return False
+        
