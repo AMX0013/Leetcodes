@@ -3,25 +3,26 @@
 
 SELECT mainP.product_id as product_id, mainP.new_price as price
 FROM Products mainP
-WHERE mainP.change_date 
-        BETWEEN (
-            SELECT max(subp.change_date) 
+WHERE (mainP.product_id, mainP.change_date )
+        in (
+            SELECT subp.product_id , max(subp.change_date) 
             FROM Products subp 
-            where mainP.product_id = subp.product_id 
-                and subp.change_date <= '2019-08-16'
-            GROUP BY product_id) 
-        AND  '2019-08-16'
+            where subp.change_date <= '2019-08-16'
+            GROUP BY product_id
+            ) 
+        
 GROUP BY product_id
 
 UNION 
 
 SELECT unionP.product_id as product_id, 10 as price
 FROM Products unionP
-WHERE unionP.product_id in 
+WHERE unionP.product_id not in 
     (
-        select subQ.product_id
+        select distinct subQ.product_id
         from Products subQ
-        group by subQ.product_id
-        having min(subQ.change_date ) > '2019-08-16'
+        where (subQ.change_date ) <= '2019-08-16'
+        -- group by subQ.product_id
+        -- having min(subQ.change_date ) > '2019-08-16'
     )      
 GROUP BY unionP.product_id
