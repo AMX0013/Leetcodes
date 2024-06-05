@@ -7,8 +7,8 @@ class Solution:
         multiplesCount = {}
 
 
-        # if k == 1 and nums2 == [1]*len(nums2):
-        #     return len(nums2) * len(nums1)       
+        if k == 1 and nums2 == [1]*len(nums2):
+            return len(nums2) * len(nums1)       
 
         for num2 , count2 in countNums2.items():
             multiple = num2 * k
