@@ -9,7 +9,7 @@ class Solution:
         # prep for negative on one of the numbers
         # XOR only
         
-        if (numerator < 0) ^ (denominator < 0) :
+        if (numerator * denominator )< 0 :
             res += "-"
         
         num, den = abs(numerator), abs(denominator)
