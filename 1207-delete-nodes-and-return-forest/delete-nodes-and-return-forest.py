@@ -13,6 +13,7 @@ class Solution:
             # tbd = node.left or node.right
             # store tbd in res
             # call DFS on them again
+        to_delete = set(to_delete)
         res = []     
         
 
