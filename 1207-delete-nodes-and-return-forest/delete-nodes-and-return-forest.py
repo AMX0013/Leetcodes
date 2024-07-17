@@ -8,22 +8,14 @@ class Solution:
     
     
     def delNodes(self, root: Optional[TreeNode], to_delete: List[int]) -> List[TreeNode]:
-        # iterate over the nodes DFS
-        # if node.left or node.right is to be deleted
-            # tbd = node.left or node.right
-            # store tbd in res
-            # call DFS on them again
         to_delete = set(to_delete)
         res = []     
         
-
         def dfs( node: TreeNode):
             # if this node is to be deleted
-            # create a bool var sav_child 
+            # remove node from res, but save it's children to res
             sav_child = False
-
-            if node.val in to_delete:
-                # remove node from res
+            if node.val in to_delete:                
                 sav_child = True
                 if node in res:
                     res.remove(node)
@@ -38,9 +30,7 @@ class Solution:
                 if sav_child:
                     res.append(LFT)
                 # explore the child noneheless
-                dfs(LFT)
-
-                
+                dfs(LFT)                
 
             if node.right:
                 RHT = node.right
@@ -53,9 +43,7 @@ class Solution:
                     res.append(RHT)
                 # explore the child noneheless
                 dfs(RHT)
-                
-                
-                
+
         res.append(root)
         dfs(root)
         
