@@ -11,12 +11,12 @@ class Solution:
         # This is easy because its a binary search tree
         # p and q are going to be around their LCA such that p LCA q ORR q LCA p
         # OUR Goal is to ensure that we go left or right based on the common side that both p and q exist
-            # and on
-        #  so saw 
-
+            
         curr_ptr = root
 
         while curr_ptr:
+            # ensure mutual exclusivit through usage of if elif else
+            
             if p.val < curr_ptr.val and q.val < curr_ptr.val:
                 # move left and check
                 curr_ptr = curr_ptr.left
