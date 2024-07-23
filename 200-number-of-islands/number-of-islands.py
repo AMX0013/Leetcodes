@@ -13,20 +13,17 @@ class Solution:
             # print(visited)
             x=0
             while x < width:
-                if  grid[y][x] =="1" :  
-                    
+                if  grid[y][x] =="1" :                      
                     node = (y,x)
                     count_islands += 1 
                     q.appendleft(node)
                     # bfs
                     while q:
                         curr_y, curr_x = q.pop()
-
                         if grid[curr_y][curr_x] == "0" :#already visited
                             continue
                         
                         grid[curr_y][curr_x] = "0"
-
                         for dir_y, dir_x in dir:
                             new_y = curr_y + dir_y
                             new_x = curr_x + dir_x
