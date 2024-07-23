@@ -1,27 +1,4 @@
 class Solution:
-
-    # def bfs(self,node, visited, grid):
-        
-        
-    #     width = len(grid[0])
-    #     height = len(grid)
-
-
-    #         for dir_y, dir_x in dir:
-    #             new_y = curr_y + dir_y
-    #             new_x = curr_x + dir_x
-
-    #             if new_y < height and \
-    #                new_x < width and \
-    #                new_y >= 0 and \
-    #                new_x >= 0 and \
-    #                grid[new_y][new_x] =="1":
-
-    #                 new_node = (new_y, new_x)
-    #                 if new_node in visited:
-    #                     continue
-    #                 else:
-    #                     q.appendleft(new_node)
         
     def numIslands(self, grid: List[List[str]]) -> int:
             
