@@ -5,7 +5,7 @@ public:
         // change indicates how many hops can we do after we start
         // then we'll have to wait for the remiander of the time in the city we are in
     int secondMinimum(int n, vector<vector<int>>& edges, int time, int change) {
-        vector<int> adj_list[n+1];
+        
         priority_queue<
 
             pair<int,int>,
@@ -20,23 +20,14 @@ public:
         // 2 visits vector
         int visitedDest = 0;
 
+        vector<int> adj_list[n+1];
         for (auto edge: edges){
             int src = edge[0];
             int dest = edge[1];
 
             adj_list[src].push_back(dest);
             adj_list[dest].push_back(src);
-            /*
-            cout<< "\n"<< "src: "<< src << endl;
-            for (int neighbor : adj_list[src]) {
-              cout << neighbor << ", ";
-            }
             
-            cout<< "\n" <<"dest: "<< dest <<endl;
-            for (int neighbor : adj_list[dest]) {
-              cout << neighbor << ", ";
-            }
-            */
         } 
         // steps: the number of cities being visited, except 1
         // pq.push({step=0, start =1})
