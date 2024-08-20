@@ -6,25 +6,30 @@ class Solution:
         # rule: all substring of length 2 should contain a "1"
 
         # create all strings of length n, valid to this rule
-        memo = defaultdict()
+        memo: Dict[Tuple[int, str], List[str]] = {}
 
-        def fwd(pre:str, len_left:int):
-            if (pre,len_left) in memo:
-                # print("from memo, pre:",pre, "len_left:",len_left, "yielded:", memo[(pre,len_left)])
-                return memo[(pre,len_left)]
-            res = set()
-            if len_left ==0:
-                # print("A Pre:", pre )
-                return {pre}
+        def backtrack(remaining: int, last_char: str) -> List[str]:
+            if remaining == 0:
+                return [""]  # Base case: a valid string of length 0 is an empty string
+
+            if (remaining, last_char) in memo:
+                return memo[(remaining, last_char)]
+
+            res = []
+            # If the last character is '0', we must append '1'
+            if last_char == "0":
+                for next_str in backtrack(remaining - 1, "1"):
+                    res.append("1" + next_str)
             else:
-                if len(pre)>0 and pre[-1] == "0":
-                    res.update(  fwd( pre + "1" , len_left-1 ) )                
-                else:
-                    res.update(  fwd( pre + "0" , len_left-1 ) )                
-                    res.update(  fwd( pre + "1" , len_left-1 ) )         
-            memo[(pre,len_left)] = res
-            # print("from compute, pre:",pre, "len_left:",len_left, "yielded:", memo[(pre,len_left)] )  
+                # The last character is '1', we can append either '0' or '1'
+            # else last_char == "1":
+                for next_str in backtrack(remaining - 1, "0"):
+                    res.append("0" + next_str)
+                for next_str in backtrack(remaining - 1, "1"):
+                    res.append("1" + next_str)
 
+            memo[(remaining, last_char)] = res
             return res
 
-        return list(fwd("",n))
+        # Start the backtracking with initial calls
+        return backtrack(n , "")
