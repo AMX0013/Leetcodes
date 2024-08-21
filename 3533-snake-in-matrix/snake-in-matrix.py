@@ -14,7 +14,7 @@ class Solution:
                     src = (src[0],max(src[1]-1 , 0)) 
                 case "RIGHT":
                     src = (src[0],min(src[1]+1 , n-1)) 
-            print(src)
+            # print(src)
 
         return src[0]*n + src[1]
                 
