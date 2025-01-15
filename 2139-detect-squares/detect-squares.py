@@ -22,7 +22,7 @@ class DetectSquares:
                 diag    = (d[0], d[1])
                 
                 if dxpy in self.grid and pxdy in self.grid:
-                    num_sqrs = self.grid.get(diag,0)  * self.grid.get(dxpy) * self.grid.get(pxdy)
+                    num_sqrs = self.grid.get(diag)  * self.grid.get(dxpy) * self.grid.get(pxdy)
 
                     # print(num_sqrs)
                     # if point in self.grid:
