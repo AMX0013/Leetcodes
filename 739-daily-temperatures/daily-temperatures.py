@@ -1,16 +1,15 @@
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
         res = [0 for _ in range(len(temperatures))]
-        mono_dec_stack = []
+        stack = [] # takes tuples, (temp, idx: the day when it i observed)
+        for idx, temp in enumerate(temperatures):
+            while len(stack) > 0 and temp > stack[-1][0] :
+                idc_abt_temp_that_day, dayDate = stack.pop()
+                res[dayDate] = idx - dayDate
 
-        for idx, num in enumerate(temperatures):
+            stack.append( (temp, idx) )
 
-            while  len(mono_dec_stack) >0 and mono_dec_stack[-1][0] < num:
-                numm, indx =  mono_dec_stack.pop()
-                res[indx] = idx-indx
-
-            mono_dec_stack.append( (num, idx) )
         return res
-            
+
 
         
