@@ -1,21 +1,21 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
-        # Goal reach top, n steps away
-        # u can take 1 or 2 steps at once
-        # how many distinct ways can you reach the top
-        memo=defaultdict(int)
-
-        # Option 1 : recur with memo [not DP]
-        def recur(stage: int):
-            if stage > n:
-                return 0
-            if stage == n:
-                return 1
-            if stage in memo.keys():
-                return memo[stage]
-
-            memo[stage] = recur(stage+1) + recur(stage+2)
-
-            return memo[stage]
-        
-        return recur(0)
+        # bottom up: from the dest to src
+        # check moves from n-1
+        # given: no of moves
+        moves = 2
+        # maintain a deque of fixed len, pop, and append left
+        # below is n-th place and nth place values, indicating in how many moves can they reach
+        # [1][1]
+        # In 1 step from n-1
+        ways = deque()
+        # init
+        ways.append(1)
+        ways.append(1)
+        # print(ways)
+        for i in range(n-1):        # n-1 cuz we computed one step, from the n-1th place 
+            newNumOfWays = sum(ways)
+            ways.pop()
+            ways.appendleft(newNumOfWays)
+            # print(ways)
+        return ways[0]
